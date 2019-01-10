@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<!--
+scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug：当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false
+-->
+<configuration scan="true" scanPeriod="30 minutes" debug="false">
+    <!-- 日志存储根路径 tomcat根目录中的logs文件夹 -->
+    <property name="log.dir.root" value="../logs/logRecord"/>
+
+    <!-- 控制台输出日志 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="utf-8"> <!-- encoder 可以指定字符集，对于中文输出有意义 -->
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] %logger-->%msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 出错日志 appender -->
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按小时回滚 -->
+            <fileNamePattern>${log.dir.root}/error/sys-error-%d{yyyy-MM-dd-HH}.log.gz</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>7200</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 普通日志 appender -->
+    <appender name="info"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.dir.root}/info/sys-info-%d{yyyy-MM-dd-HH}.log.gz</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>7200</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="error" />
+        <appender-ref ref="info" />
+    </root>
+
+    <!-- 下面配置一些第三方包的日志过滤级别 -->
+    <logger name="com.appearance" level="DEBUG"/>
+    <logger name="com.stem" level="DEBUG"/>
+    <logger name="com.seed" level="DEBUG"/>
+    <logger name="org.springframework.web" level="DEBUG"/>
+    <logger name="org.mybatis"	level="DEBUG" />
+    <logger name="com.alibaba" level="DEBUG" />
+    <logger name="org.apache.shiro" level="DEBUG" />
+    <logger name="org.springframework.aop" level="DEBUG" />
+
+</configuration>

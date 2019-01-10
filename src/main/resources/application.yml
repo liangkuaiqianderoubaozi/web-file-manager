@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: small
+  thymeleaf:
+    cache: false
+
+user:
+  username : admin
+  password : 123qwe
