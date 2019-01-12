@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class FileManagerController {
     public ModelAndView index() throws IOException {
 
         ModelAndView modelAndView = new ModelAndView("filesIndex");
-        modelAndView.addObject("listRoots", getListFile(null));
+        modelAndView.addObject("listRoots", getListFile("/Users/mogu/Desktop/"));
         return modelAndView;
     }
 
@@ -66,7 +67,7 @@ public class FileManagerController {
         body = new byte[is.available()];
         is.read(body);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+        headers.add("Content-Disposition", "attchement;filename=" +  new String(file.getName().getBytes(StandardCharsets.UTF_8), "ISO8859-1"));
         HttpStatus statusCode = HttpStatus.OK;
         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
         return entity;

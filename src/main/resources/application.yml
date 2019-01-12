@@ -5,6 +5,8 @@ spring:
     name: small
   thymeleaf:
     cache: false
+  mvc:
+    static-path-pattern: /**
 
 user:
   username : admin

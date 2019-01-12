@@ -1,0 +1,16 @@
+body {
+    background: url('../img/bg.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.card-action > .btn-small {
+    width: 100%;
+}
+
+.row {
+    margin-top: 15%;
+    width: 80%;
+}
+input{
+    color: #63d6ae;
+}
