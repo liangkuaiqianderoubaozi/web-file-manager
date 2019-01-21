@@ -9,5 +9,7 @@ spring:
     static-path-pattern: /**
 
 user:
-  username : admin
-  password : 123qwe
+  username: admin
+  password: 123qwe
+
+base-path: "/"

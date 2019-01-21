@@ -6,33 +6,115 @@
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/materialize.min.css">
     <script defer src="/js/materialize.min.js"></script>
+    <style>
+        .breadnav {
+            border-radius: 5px;
+            margin: 1rem 0;
+            background-color: #ecf0f1;
+            height: 44px;
+            line-height: 44px;
+        }
+
+        .breadcrumb i {
+            height: 44px !important;
+            line-height: 44px !important;
+            font-size: 16px !important;
+        }
+
+        .breadnav a {
+            color: #18BC9C;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .breadcrumb:before {
+            color: #18BC9C;
+            font-size: 18px;
+            margin: 0 0px 0 -5px;
+             width: 15px;
+        }
+
+        .breadcrumb:last-child {
+            color: #18BC9C;
+        }
+
+        .breadcrumb {
+            font-size: 16px;
+        }
+
+        .container {
+            width: 80%;
+        }
+
+        nav {
+            box-shadow: 0 0 0;
+        }
+
+        .navcol {
+            margin-left: 10px;
+        }
+
+        td {
+            font-size: 0.9375rem;
+        }
+
+        td .material-icons {
+            font-size: initial;
+        }
+
+        .wd50 {
+            width: 50%;
+        }
+
+        a {
+            color: #18bc9c;
+        }
+    </style>
 </head>
 <body>
     <div>
         <nav>
-            <div class="nav-wrapper blue ">
+            <div class="nav-wrapper blue-grey darken-4 ">
                 <div class="row container">
                     <div class="brand-logo col s1">Share</div>
                 </div>
             </div>
         </nav>
         <div class="container">
+            <nav class="breadnav">
+                <div class="nav-wrapper">
+                    <div class="col s12 navcol">
+                        <a href="/" class="breadcrumb"><i class="material-icons">home</i>Home</a>
+                        <th:block th:each="path:${paths}">
+                            <a th:href="@{open(path=${path.value})}" class="breadcrumb" th:utext="${path.key}"></a>
+                        </th:block>
+                    </div>
+                </div>
+            </nav>
             <table class="highlight">
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th class="wd50">Name</th>
+                    <th>Size</th>
+                    <th>Last Modified Time</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="file:${listRoots}">
-                    <td th:text="${file}"></td>
-                    <td><a th:href="@{'open?path='+${file}}" class="filepath"><i class="material-icons">send</i></a></td>
+                    <td>
+                        <a th:href="@{open(path=${file.path})}" class="filepath" th:inline="text">
+                            <i class="material-icons" th:text="${file.isDir}?'folder_open':'insert_drive_file'"></i>
+                            [[${file.name}]]
+                        </a>
+                    </td>
+                    <td th:text="${file.size}"></td>
+                    <td th:text="${file.lastModifiedTime}"></td>
+                    <td><a th:href="@{open(path=${file.path})}" class="filepath"><i class="material-icons" th:utext="${file.isDir}?'folder_open':'file_download'"></i></a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </body>
-
 </html>

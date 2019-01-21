@@ -1,6 +1,6 @@
 package com.file;
 
-import com.file.iInterceptor.CertificationInterceptor;
+import com.file.interceptor.CertificationInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;

@@ -1,14 +1,10 @@
-package com.file.iInterceptor;
+package com.file.interceptor;
 
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.expression.Lists;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package com.file.iInterceptor;
+package com.file.interceptor;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
